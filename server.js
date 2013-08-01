@@ -59,7 +59,7 @@ function calulateResults (realCount) {
   var median = numbers.sort(function (a,b) {
     return a - b;
   })[~~(guesses.length / 2)];
-  numbers.forEach(functino (number) {
+  numbers.forEach(function (number) {
     variance += Math.pow(number - realCount, 2);
   });
   var standardDeviation = Math.pow(variance / guesses.length, 0.5);
