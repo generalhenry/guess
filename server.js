@@ -39,6 +39,7 @@ function calulateResults (realCount) {
     }
   })[0];
   var total = 0;
+  var variance = 0;
   var numbers = guesses.map(function (guess) {
     return Number(guess.guess);
   });
@@ -58,13 +59,18 @@ function calulateResults (realCount) {
   var median = numbers.sort(function (a,b) {
     return a - b;
   })[~~(guesses.length / 2)];
+  numbers.forEach(functino (number) {
+    variance += Math.pow(number - realCount, 2);
+  });
+  var standardDeviation = Math.pow(variance / guesses.length, 0.5);
   return resultsTemplate
     .replace(/{{realCount}}/, realCount)
     .replace(/{{winnerName}}/, winner.name)
     .replace(/{{winnerGuess}}/, winner.guess)
     .replace(/{{mean}}/, mean)
     .replace(/{{mode}}/, mode)
-    .replace(/{{median}}/, median);
+    .replace(/{{median}}/, median)
+    .replace(/{{standardDeviation}}/, standardDeviation);
 }
 
 function generateTable () {
