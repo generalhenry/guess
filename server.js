@@ -1,7 +1,9 @@
-var express = require('express');
-var concat = require('concat-stream');
+var shoe = require('shoe');
+var dnone = require('dnode');
+var http = require('http');
+var ecstatic = require('ecstatic');
+var server = http.createServer(ecstatic(__dirname + '/public');
 var fs = require('fs');
-var app = express();
 var guesses = [];
 var rowTemplate = fs.readFileSync(__dirname + '/templates/row.tmpl').toString();
 var resultsTemplate = fs.readFileSync(__dirname + '/templates/results.tmpl').toString();
@@ -14,27 +16,11 @@ fs.readFileSync(__dirname + '/save.json')
   });
 var save = fs.createWriteStream(__dirname + '/save.json', { flags: 'a'});
 
-app.use(express.static(__dirname + '/public'));
-
-app.post('/guess', function (req, res, next) {
-  req.pipe(concat(function (body) {
-    var guess = JSON.parse(body);
-    console.log(guess);
-    guesses.unshift(guess);
-    res.send(generateTable());
-    save.write(body + '\n');
-  }));
-});
-
-app.get('/guesses', function (req, res, next) {
-  res.send(generateTable());
-});
-
-app.post('/calculate', function (req, res, next) {
-  req.pipe(concat(function (body) {
-    var realCount = JSON.parse(body);
-    res.send(calulateResults(realCount));
-  }));
+var d = dnode(function (remote, conn) {
+  remote.fillTable(generateTable());
+  this.guess = function (guess) {
+    guesses.
+  }
 });
 
 function calulateResults (realCount) {
@@ -82,4 +68,4 @@ function generateTable () {
   }).join('\n');
 }
 
-app.listen(3000);
+server.listen(3000);

@@ -4,14 +4,15 @@
   "description": "ERROR: No README.md file found!",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "rm save.json && touch save.json",
     "start": "node server.js"
   },
   "repository": "",
   "author": "",
   "license": "BSD",
   "dependencies": {
-    "concat-stream": "~1.0.0",
-    "express": "~3.3.4"
+    "shoe": "0.0.12",
+    "dnode": "~1.0.5",
+    "ecstatic": "~0.4.5"
   }
 }
