@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<title>Guess The M&amp;M Count</title>
+<h1>Guess The M&amp;M Count</h1>
+<form>
+  <label>
+    <span>Name:</span>
+    <input name='name' placeholder='John Doe' required>
+  </label>
+  <label>
+    <span>Guess:</span>
+    <input name='guess' type='number' required>
+  </label>
+  <button>Submit</button>
+</form>
+<div id='results'></div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Guess</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<script src='guess.js'></script>
+<style>
+  body, html {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 40px;
+    text-align: center;
+  }
+  input, button {
+    font-family: sans-serif;
+    font-size: 1em;
+    border-radius: 0.25em;
+  }
+  h1 {
+    background-color: rgb(245, 125, 125);
+  }
+  form {
+    background-color: rgb(105, 231, 231);
+    padding: 1em;
+  }
+  table, tr {
+    width: 100%;
+  }
+  th, td {
+    width: 50%;
+    text-align: center;
+  }
+  tbody tr:nth-child(even) {
+    background-color: rgb(105, 231, 231);
+  }
+  tbody tr:nth-child(odd) {
+    background-color: rgb(245, 125, 125);
+  }
+</style>
