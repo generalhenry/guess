@@ -1,8 +1,8 @@
-var shoe = require('shoe');
-var dnone = require('dnode');
-var http = require('http');
-var ecstatic = require('ecstatic');
-var server = http.createServer(ecstatic(__dirname + '/public');
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+io.set('log level', 0);
 var fs = require('fs');
 var guesses = [];
 var rowTemplate = fs.readFileSync(__dirname + '/templates/row.tmpl').toString();
@@ -16,11 +16,18 @@ fs.readFileSync(__dirname + '/save.json')
   });
 var save = fs.createWriteStream(__dirname + '/save.json', { flags: 'a'});
 
-var d = dnode(function (remote, conn) {
-  remote.fillTable(generateTable());
-  this.guess = function (guess) {
-    guesses.
-  }
+app.use(express.static(__dirname + '/public'));
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('guesses', generateTable());
+  socket.on('guess', function (guess) {
+    guesses.unshift(guess);
+    save.write(JSON.stringify(guess) + '\n');
+    io.sockets.emit('guesses', generateTable());
+  });
+  socket.on('calculate', function (realCount) {
+    io.sockets.emit('results', calulateResults(realCount));
+  });
 });
 
 function calulateResults (realCount) {
